@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traffic-manager
+  namespace: default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traffic-manager
+      telepresence: manager
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Allows creating one extra pod during the update
+      maxUnavailable: 0  # Ensures no pods are terminated until new ones are ready
+  template:
+    metadata:
+      labels:
+        app: traffic-manager
+        telepresence: manager
+    spec:
+      securityContext:
+        null
+      containers:
+        - name: traffic-manager
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1000
+          image: "ghcr.io/telepresenceio/tel2:1.1.1-bogus.overwritten.by.chart.go"
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: LOG_LEVEL
+            value: info
+          - name: REGISTRY
+            value: "ghcr.io/telepresenceio"
+          - name: SERVER_PORT
+            value: "8081"
+          - name: POD_CIDR_STRATEGY
+            value: auto
+          - name: MUTATOR_WEBHOOK_PORT
+            value: "8443"
+          - name: AGENT_INJECTOR_SECRET
+            value: mutator-webhook-tls
+          - name: GRPC_MAX_RECEIVE_SIZE
+            value: 4Mi
+          - name: CLIENT_CONNECTION_TTL
+            value: 24h
+          - name: ENABLED_WORKLOAD_KINDS
+            value: >-
+              Deployment
+              StatefulSet
+              ReplicaSet
+          - name: AGENT_ARRIVAL_TIMEOUT
+            value: "30s"
+          - name: AGENT_INJECT_POLICY
+            value: OnDemand
+          - name: AGENT_INJECTOR_NAME
+            value:  "agent-injector"
+          - name: AGENT_PORT
+            value: "9900"
+          - name: AGENT_INIT_CONTAINER_ENABLED
+            value: "true"
+          - name: AGENT_IMAGE_PULL_POLICY
+            value: IfNotPresent
+          - name: MAX_NAMESPACE_SPECIFIC_WATCHERS
+            value: "10"
+          - name: MANAGER_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.podIP
+          - name: CLIENT_DNS_EXCLUDE_SUFFIXES
+            value: ".com .io .net .org .ru"
+          ports:
+          - name: api
+            containerPort: 8081
+          - name: https
+            containerPort: 8443
+      serviceAccount: traffic-manager
+      serviceAccountName: traffic-manager

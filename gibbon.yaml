@@ -1,0 +1,10 @@
+server_url: http://192.168.178.88:1234
+model: meta-llama-meta-llama-3.1-8b-instruct
+# model: llama-3.3-70b-instruct
+max_tokens: 4096
+instructions:
+  - 'Prefix all resource names with `gibbon-`'
+  - 'Set the `.metadata.labels.engine=gibbon` and `.metadata.labels.engine/version=0.0.1`'
+  - 'Set the environment variable AGENT_MOUNT_POLICIES to {"/tmp\":"Local"}'
+  - 'Set the environment variable NOT_USED_NSS to a list containing kube-system and kube-node-lease'
+  - "Replace `default` namespace with `mynamespace`"

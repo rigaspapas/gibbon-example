@@ -1,0 +1,520 @@
+---
+# Source: telepresence-oss/templates/trafficManagerRbac/service-account.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: traffic-manager
+  namespace: default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+---
+# Source: telepresence-oss/templates/agentInjectorWebhook.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mutator-webhook-tls
+  namespace: default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+data:
+  ca.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURJekNDQWd1Z0F3SUJBZ0lRR2JPbTV3TGwzWFc5UGVkUTBwOEx4REFOQmdrcWhraUc5dzBCQVFzRkFEQWMKTVJvd0dBWURWUVFERXhGaFoyVnVkQzFwYm1wbFkzUnZjaTFqWVRBZUZ3MHlOVEV3TWpZeE1EVTBOREphRncweQpOakV3TWpZeE1EVTBOREphTUJ3eEdqQVlCZ05WQkFNVEVXRm5aVzUwTFdsdWFtVmpkRzl5TFdOaE1JSUJJakFOCkJna3Foa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQW5VTjAwMGR3djBIS3dFVGkyZ1VoQ1RMYzd6U0cKYWtZOURFSU1FZURlUXZWV3FaN09NSFdmOU1sMEhWRy9Wb0paaVdLc1BUVkg5V1FDaUYvY1lmZEM3dmRmVS9WQQpYZEg1cDdRemJONnMyQWVzUVZ2aWU5R2ZmUEV3NURkRDMrVDJYcktOV0FzaHI3aDNjZ1NnazQvQ2xrUlltQ2VSCkxNcE14d2xmL2pQZ3ZiRWNHZkJPV2d2OW1vbU5TWkp4dHlxUEluUllXUnJ0SnBTdnp3eUlSUFBwbzAwdGFUU0wKbVZER2pFRkNZOEh3T2pURnVSb1NCMkJVT1VKVHJBajdYdnNVbityRjB3R0NBbmtOMEV3WnhLdFBiNGlzbmxVWQp2UEZuaVNRRk1BeUg4bSt0dlJvQnJxTkNlaWdSRWtCRGtscmtCYXJSOFZsN1FsTXZzRUJNUjVaL253SURBUUFCCm8yRXdYekFPQmdOVkhROEJBZjhFQkFNQ0FxUXdIUVlEVlIwbEJCWXdGQVlJS3dZQkJRVUhBd0VHQ0NzR0FRVUYKQndNQ01BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZQY1FMYnVVSVZIQW9QU0RER3lGNTlDRAo3YnhLTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFBeWxrSU9ZRTNFdS9icHh1b0xKWUJxQzdyK3VKQWhiQjNVCm5MM1NTRTV6dmJSZmRBaWRCQXZVUEpOcW1WVlV6bk1sYTRRbXNkbWNOYkk2bnAxMFZXNGdGb3l6NmplUUVrRHEKMytMTFpoaDFBaFZGNmR5ZHJUL0lBVUtMOTVITmgyVXZTaEJpRUdxT3h0TG05RE9jY2ljdFJmNWg1SHJaRHNwQwpQc0dnaU9Kb0pycitwN3BROHU0N0duS1JmaGp4T0xkWFJUR0dqR2lhbjg3Mm5DMHFHUUZObDJXZGNwVXpLVlR3Ckx6c3N6TENKS0lTa1E4RFFxMVZNbW9KblFvdjIvT2V5SDRrb3dvZ1l5dUxEVFNFaFJKWmF6VEZhemp2ZjZPUE8KS3lwNTQrdzlRdGI4VWVmWENIZm5nYnFPSXErWlgvUXpPNGZPMkJZVE9PeGRYRmc0TFFiTQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURZVENDQWttZ0F3SUJBZ0lSQU05ZXBrMTJvT1lNaWpTczVGYU5HdVV3RFFZSktvWklodmNOQVFFTEJRQXcKSERFYU1CZ0dBMVVFQXhNUllXZGxiblF0YVc1cVpXTjBiM0l0WTJFd0hoY05NalV4TURJMk1UQTFORFF5V2hjTgpNall4TURJMk1UQTFORFF5V2pBWk1SY3dGUVlEVlFRREV3NWhaMlZ1ZEMxcGJtcGxZM1J2Y2pDQ0FTSXdEUVlKCktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQUxHN0lhSEFnNGhmeUs0NXlZa09hRG4yK0NCV0hsb2IKeEpFVHI0Sk40SDFaOE4vYUovUUJvcWpKTWJDZmVMSVhoVXRSMHY3eU8yNVBwakZHNDc5S2cyTGxPQ0NUL3JYeApCckZWd25QKzdyL3FvdWtoN05GRS8vRlRyWDhJWTk2R3FkdnhZM0FISngxMXhTTUNIdEI4WVArckNScURDbXZIClJrbnFQOXhiS2ZZRTU5ZXJjTU54WkFiTnExQW5tdDdTRStPUDRqSnhRNkt2dnBlVGc2ODV0Syt1T2F0em80UWsKdTZMNkk0cGZXT2c1MGgvbUF6bXBrMHdtNktMRTNVczdneWluVUV2VjFYSWVHUHZDQkRBZ0NlWkZtWmFVdWozUQoyQ0V5WmtsaEtrVXRLSld1TTJ3dFZqdzRRZi9vLy9DMnNWVTVONGQrclhzZk53d0hkMWdyM1VjQ0F3RUFBYU9CCm9EQ0JuVEFPQmdOVkhROEJBZjhFQkFNQ0JhQXdIUVlEVlIwbEJCWXdGQVlJS3dZQkJRVUhBd0VHQ0NzR0FRVUYKQndNQ01Bd0dBMVVkRXdFQi93UUNNQUF3SHdZRFZSMGpCQmd3Rm9BVTl4QXR1NVFoVWNDZzlJTU1iSVhuMElQdAp2RW93UFFZRFZSMFJCRFl3TklJV1lXZGxiblF0YVc1cVpXTjBiM0l1WkdWbVlYVnNkSUlhWVdkbGJuUXRhVzVxClpXTjBiM0l1WkdWbVlYVnNkQzV6ZG1Nd0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFDM3dZd2l6ZndsYTgvRHgKUEw5NzIzRTdyRjhxd1c4L0VPTjlnVndUUGdsMjBwY2gybmY5VHVtU1BmOXdFRFZZTnN3WUl2elZkd2tDNnFZNQpZR0w0clE5LzNnVlErWDg1OUNLOUpHOWdqS1FWbFdqamQvM0UzUWNWN3M0Zm4xemd0QjNZSUZjZDUrbmFUWVArClBZYmJ3eGNrdzRYZkJ4UzRQZ3RkM3RSWXp5M3dneXhNWTl2TkE2aWlRNkNpS0J4b2pKRm9JMENaUjRCM0o0RnYKYmgzamhheU44c25keHFCdUdHaUFsWEt1VWFkeFV3ek1UdUNLVHYxMytKQkF2WlRVazk1d3dXVm13TTcrTmJUeQpFbE9DTldmalZXTm5sWk41YjF5TzhPaW01TFZGbUQrSUFRa2QvaHN5L1AySld0UXJyd1pueHozeitvaFEzOHFsCjBoZEd2cTQ9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBc2JzaG9jQ0RpRi9JcmpuSmlRNW9PZmI0SUZZZVdodkVrUk92Z2szZ2ZWbnczOW9uCjlBR2lxTWt4c0o5NHNoZUZTMUhTL3ZJN2JrK21NVWJqdjBxRFl1VTRJSlArdGZFR3NWWENjLzd1ditxaTZTSHMKMFVULzhWT3Rmd2hqM29hcDIvRmpjQWNuSFhYRkl3SWUwSHhnLzZzSkdvTUthOGRHU2VvLzNGc3A5Z1RuMTZ0dwp3M0ZrQnMyclVDZWEzdElUNDQvaU1uRkRvcSsrbDVPRHJ6bTByNjQ1cTNPamhDUzdvdm9qaWw5WTZEblNIK1lECk9hbVRUQ2Jvb3NUZFN6dURLS2RRUzlYVmNoNFkrOElFTUNBSjVrV1pscFM2UGREWUlUSm1TV0VxUlMwb2xhNHoKYkMxV1BEaEIvK2ovOExheFZUazNoMzZ0ZXg4M0RBZDNXQ3ZkUndJREFRQUJBb0lCQUFHVmNVOUhyK1JmTmlLWApVVHh2Ykc1WHpRNDh0amlIVnRFVUk5UTliV3F3aW56MExMYjM3TU1rUjlVVEZyZy9qV2lHYWlMcmRhd2QrWlVtCjFKQzMwVVBvVnYrelVlbTlKQm9nY1lNbkdtbUxaYmcrSFNZZ1AwZWZQMFNLaHBsTkNlWnoyRGIvV1ZIaDRzZlYKRlFFMm1vYXN0NEFNK3VMSys4MWMwUVRkcXhvT0hWSEY0NU00TVErclZ3T3c5dk5DZXhRM3FJcitQMEhtbUpwKwpvR1ViMzVQdWcrLzNqSERpd0tyV09UbjJpWEdlR0lMR3AxVkt6NGpIM2tFWk5ibDFuVlpjWll2TlFnbDR1K1pLCnJTZ3JUMURmUUhzZC9TeVI0T0NxdHY0NzVVSkozb3dOdUV3cHZMSnZWbVVLbmliUHFRY25pT2F3ditxcDdCN1kKeXlKZGFrRUNnWUVBNlFBZ2JkL0VERzEyOW0yQnhMOXlSNXdtd3hSc3I5YzQrWmp5UVhDMFlFdWhJM3dJWXN1SwprZnBldkdIcGFTQWhnOVVGZ2xVcVlVUHptWVBLMVJzWDhDT1ZvdmJLdTExZUUxUm5SWWUxYWtzdXUyQyt3cFBICjAxaytaUlorUjhrc2h3OUdjUHJQNG5qbWpMbDJIc0FHSXhZbmFqQ01LMWU4Y0p4S0FuaFhIYlVDZ1lFQXcwWmIKRS9BTnFGRkZ2OVNoSy9Fb2FxaG5DT255RG5nOWorbnRKSTFPckNYRGdBNVVSNHRkM1pDTG1Dd1NRRjhYWDNIUgpqVEMxTUhVc3QrY2FIQThkRm9tUnQ4UUlpdHR0QXBMd0J3M3BHSU1yVU9YWldMdjhIRGFZK2NUb1hnVW0xd25MCmpRUEN4aGs0eStkUjZ4V1lGQWEybVlQUURPcDRXV01Rd0tQNVRJc0NnWUVBd093UjdlZnhkRGpPMzR3Y2ZzUGwKNDlVdll5ZHVOc3FGcW1VeGNXM1liRU15MFNiSjZzT05vUUVsbitXU1ZqRDhqeU82eEFld1o0alVFckJGS2Q2ZApHNERiVFd2NndOaTJKRnNtaHpPdXlxd2xyWkNWWXBicVJkMEhCTHh6SXcwM2lUemtubmVOMlg4eHBpT0o0andzCjJMQm5RazJnUWVNTGJGSjhGVDkvSW1FQ2dZQkxNa3VlV09HWmdIcUFqWXZuRlAzQVhNc1lscVk4eGpiR3RZazUKZXlUaGk4VkdDYjZRc20xYUJmQ0xqK1VUWHNyc1dUTWQwTFRsVFNvRVEzMDljdUI3cmt3cjNOU0JURkFsSHBwSgp6U1NHNlBRRU9nN0JhZHFDcnMrbjF4aTRJL201OHk2c1JkZDZXM29Rb3lwYmdieEhjZkpkR1hKRGx3THpRUC9SCmZ4TmdVd0tCZ0NnVmxhUnRjMzA3RUN0U2cwT2pNRU9XMjZ3UHkxeld6bEdRM2ZMMUtVQ3ROY2xNalBEeVRUM0wKeGJPSmJqTnJYTTRoM1R2U2YzUVZSOXRRc3ZYTXhnNEYzeUxBUFZnSEhOcEU1MXBuc0szN2poT3UrcGpxZ09PUApxSEJQOCt2S0dKeHdMUGdwcWtLKzlPazJCTEZBT2EwTlJETHl5VzU5QXNidHJaRjdTL0x6Ci0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
+---
+# Source: telepresence-oss/templates/trafficManager-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: traffic-manager
+  namespace: default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+data:
+  client.yaml: |
+    dns:
+      excludeSuffixes:
+      - .com
+      - .io
+      - .net
+      - .org
+      - .ru
+  namespace-selector.yaml: |
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+      - kube-node-lease
+  agent-state.yaml: |
+    AgentStates: {}
+---
+# Source: telepresence-oss/templates/trafficManagerRbac/cluster-scope.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: traffic-manager-default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - update 
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  - services
+  - namespaces
+  - pods
+  verbs:
+  - list
+  - get
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/eviction
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - pods/log
+  verbs:
+  - get
+- apiGroups:
+  - "apps"
+  resources:
+  - deployments
+  - replicasets
+  - statefulsets
+  verbs:
+  - get
+  - list
+  - watch
+  - patch
+- apiGroups:
+    - "events.k8s.io"
+  resources:
+    - events
+  verbs:
+    - get
+    - watch
+- apiGroups:
+    - "networking.k8s.io"
+  resources:
+    - servicecidrs
+  verbs:
+    - list
+---
+# Source: telepresence-oss/templates/trafficManagerRbac/cluster-scope.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: traffic-manager-default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: traffic-manager-default
+subjects:
+- kind: ServiceAccount
+  name: traffic-manager
+  namespace: default
+---
+# Source: telepresence-oss/templates/trafficManagerRbac/namespace-scope.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: traffic-manager
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - create
+- apiGroups:
+    - ""
+  resources:
+    - configmaps
+  verbs:
+    - get
+    - list
+    - watch
+    - patch
+  resourceNames:
+    - traffic-manager
+---
+# Source: telepresence-oss/templates/trafficManagerRbac/webhook-secret.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: agent-injector-webhook-secret
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  resourceNames: [ mutator-webhook-tls ]
+  verbs:
+  - get
+  - list
+  - watch
+---
+# Source: telepresence-oss/templates/trafficManagerRbac/namespace-scope.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: traffic-manager
+  namespace: default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: traffic-manager
+subjects:
+- kind: ServiceAccount
+  name: traffic-manager
+  namespace: default
+---
+# Source: telepresence-oss/templates/trafficManagerRbac/webhook-secret.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: agent-injector-webhook-secret
+  namespace: default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: agent-injector-webhook-secret
+subjects:
+  - kind: ServiceAccount
+    name: traffic-manager
+    namespace: default
+---
+# Source: telepresence-oss/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: traffic-manager
+  namespace: default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - name: api
+    port: 8081
+    targetPort: api
+  selector:
+    app: traffic-manager
+    telepresence: manager
+---
+# Source: telepresence-oss/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: agent-injector
+  namespace: default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+  - name: https
+    port: 8443
+    targetPort: https
+  selector:
+    app: traffic-manager
+    telepresence: manager
+---
+# Source: telepresence-oss/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traffic-manager
+  namespace: default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traffic-manager
+      telepresence: manager
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # Allows creating one extra pod during the update
+      maxUnavailable: 0  # Ensures no pods are terminated until new ones are ready
+  template:
+    metadata:
+      labels:
+        app: traffic-manager
+        telepresence: manager
+    spec:
+      securityContext:
+        null
+      containers:
+        - name: traffic-manager
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1000
+          image: "ghcr.io/telepresenceio/tel2:1.1.1-bogus.overwritten.by.chart.go"
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: LOG_LEVEL
+            value: info
+          - name: REGISTRY
+            value: "ghcr.io/telepresenceio"
+          - name: SERVER_PORT
+            value: "8081"
+          - name: POD_CIDR_STRATEGY
+            value: auto
+          - name: MUTATOR_WEBHOOK_PORT
+            value: "8443"
+          - name: AGENT_INJECTOR_SECRET
+            value: mutator-webhook-tls
+          - name: GRPC_MAX_RECEIVE_SIZE
+            value: 4Mi
+          - name: CLIENT_CONNECTION_TTL
+            value: 24h
+          - name: ENABLED_WORKLOAD_KINDS
+            value: >-
+              Deployment
+              StatefulSet
+              ReplicaSet
+          - name: AGENT_ARRIVAL_TIMEOUT
+            value: "30s"
+          - name: AGENT_INJECT_POLICY
+            value: OnDemand
+          - name: AGENT_INJECTOR_NAME
+            value:  "agent-injector"
+          - name: AGENT_PORT
+            value: "9900"
+          - name: AGENT_MOUNT_POLICIES
+            value: '{"/tmp":"Local"}'
+          - name: AGENT_INIT_CONTAINER_ENABLED
+            value: "true"
+          - name: AGENT_IMAGE_PULL_POLICY
+            value: IfNotPresent
+          - name: MAX_NAMESPACE_SPECIFIC_WATCHERS
+            value: "10"
+          - name: MANAGER_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.podIP
+          - name: CLIENT_DNS_EXCLUDE_SUFFIXES
+            value: ".com .io .net .org .ru"
+          ports:
+          - name: api
+            containerPort: 8081
+          - name: https
+            containerPort: 8443
+      serviceAccount: traffic-manager
+      serviceAccountName: traffic-manager
+---
+# Source: telepresence-oss/templates/agentInjectorWebhook.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: agent-injector-webhook-default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURJekNDQWd1Z0F3SUJBZ0lRR2JPbTV3TGwzWFc5UGVkUTBwOEx4REFOQmdrcWhraUc5dzBCQVFzRkFEQWMKTVJvd0dBWURWUVFERXhGaFoyVnVkQzFwYm1wbFkzUnZjaTFqWVRBZUZ3MHlOVEV3TWpZeE1EVTBOREphRncweQpOakV3TWpZeE1EVTBOREphTUJ3eEdqQVlCZ05WQkFNVEVXRm5aVzUwTFdsdWFtVmpkRzl5TFdOaE1JSUJJakFOCkJna3Foa2lHOXcwQkFRRUZBQU9DQVE4QU1JSUJDZ0tDQVFFQW5VTjAwMGR3djBIS3dFVGkyZ1VoQ1RMYzd6U0cKYWtZOURFSU1FZURlUXZWV3FaN09NSFdmOU1sMEhWRy9Wb0paaVdLc1BUVkg5V1FDaUYvY1lmZEM3dmRmVS9WQQpYZEg1cDdRemJONnMyQWVzUVZ2aWU5R2ZmUEV3NURkRDMrVDJYcktOV0FzaHI3aDNjZ1NnazQvQ2xrUlltQ2VSCkxNcE14d2xmL2pQZ3ZiRWNHZkJPV2d2OW1vbU5TWkp4dHlxUEluUllXUnJ0SnBTdnp3eUlSUFBwbzAwdGFUU0wKbVZER2pFRkNZOEh3T2pURnVSb1NCMkJVT1VKVHJBajdYdnNVbityRjB3R0NBbmtOMEV3WnhLdFBiNGlzbmxVWQp2UEZuaVNRRk1BeUg4bSt0dlJvQnJxTkNlaWdSRWtCRGtscmtCYXJSOFZsN1FsTXZzRUJNUjVaL253SURBUUFCCm8yRXdYekFPQmdOVkhROEJBZjhFQkFNQ0FxUXdIUVlEVlIwbEJCWXdGQVlJS3dZQkJRVUhBd0VHQ0NzR0FRVUYKQndNQ01BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZQY1FMYnVVSVZIQW9QU0RER3lGNTlDRAo3YnhLTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElCQVFBeWxrSU9ZRTNFdS9icHh1b0xKWUJxQzdyK3VKQWhiQjNVCm5MM1NTRTV6dmJSZmRBaWRCQXZVUEpOcW1WVlV6bk1sYTRRbXNkbWNOYkk2bnAxMFZXNGdGb3l6NmplUUVrRHEKMytMTFpoaDFBaFZGNmR5ZHJUL0lBVUtMOTVITmgyVXZTaEJpRUdxT3h0TG05RE9jY2ljdFJmNWg1SHJaRHNwQwpQc0dnaU9Kb0pycitwN3BROHU0N0duS1JmaGp4T0xkWFJUR0dqR2lhbjg3Mm5DMHFHUUZObDJXZGNwVXpLVlR3Ckx6c3N6TENKS0lTa1E4RFFxMVZNbW9KblFvdjIvT2V5SDRrb3dvZ1l5dUxEVFNFaFJKWmF6VEZhemp2ZjZPUE8KS3lwNTQrdzlRdGI4VWVmWENIZm5nYnFPSXErWlgvUXpPNGZPMkJZVE9PeGRYRmc0TFFiTQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    service:
+      name: agent-injector
+      namespace: default
+      path: /traffic-agent
+      port: 8443
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - DELETE
+    resources:
+    - pods
+    scope: '*'
+  failurePolicy: Ignore
+  reinvocationPolicy: IfNeeded
+  name: agent-injector-default.telepresence.io
+  sideEffects: None
+  timeoutSeconds: 5
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+      - kube-node-lease
+---
+# Source: telepresence-oss/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "traffic-manager-test-connection"
+  namespace: default
+  labels:
+    app: traffic-manager
+    telepresence: manager
+    helm.sh/chart: telepresence-oss-1.1.1-bogus.overwritten.by.chart.go
+    app.kubernetes.io/version: "1.1.1-bogus.overwritten.by.chart.go"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/created-by: Helm
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: "docker.io/busybox:latest"
+      command: ['wget']
+      args: ['traffic-manager:8081']
+  restartPolicy: Never
+---
+# Source: telepresence-oss/templates/pre-delete-hook.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: uninstall-agents
+  namespace: default
+  labels:
+    app.kubernetes.io/managed-by: "Helm"
+    app.kubernetes.io/instance: "release-name"
+    app.kubernetes.io/version: 1.1.1-bogus.overwritten.by.chart.go
+    helm.sh/chart: "telepresence-oss-1.1.1-bogus.overwritten.by.chart.go"
+  annotations:
+    "helm.sh/hook": pre-delete
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      name: uninstall-agents
+      labels:
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/instance: "release-name"
+        helm.sh/chart: "telepresence-oss-1.1.1-bogus.overwritten.by.chart.go"
+    spec:
+      securityContext:
+        null
+      restartPolicy: Never
+      containers:
+        - name: uninstall-agents
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1000
+          image: "docker.io/curlimages/curl:8.1.1"
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: secret-volume
+              mountPath: /secret
+          env:
+            - name: CURL_CA_BUNDLE
+              value: /secret/ca.crt
+          resources:
+            null
+          command:
+            - sh
+            - -c
+          args:
+            - 'curl --fail --connect-timeout 5 --max-time 60 --request DELETE https://agent-injector.default:8443/uninstall || exit 0'
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: mutator-webhook-tls

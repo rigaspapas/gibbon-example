@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gibbon-traffic-manager
-  namespace: default
+  namespace: mynamespace
   ownerReferences:
   - apiVersion: v1
     kind: Namespace

@@ -27,6 +27,9 @@ spec:
     spec:
       containers:
       - name: gibbon-traffic-manager
+        env:
+        - name: AGENT_MOUNT_POLICIES
+          value: '{"/tmp": "Local"}'
         securityContext:
           readOnlyRootFilesystem: true
           runAsNonRoot: true

@@ -21,7 +21,9 @@ spec:
     metadata:
       labels:
         app: gibbon-traffic-manager
+        engine: gibbon
         telepresence: manager
+        engine/version: 0.0.1
     spec:
       containers:
       - name: gibbon-traffic-manager

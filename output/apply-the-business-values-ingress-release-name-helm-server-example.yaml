@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: release-name-helm-server-example
+  labels:
+    helm.sh/chart: helm-server-example-0.1.0
+    app.kubernetes.io/name: helm-server-example
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: 1.0.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: chart-example.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: release-name-helm-server-example
+            port:
+              number: 80

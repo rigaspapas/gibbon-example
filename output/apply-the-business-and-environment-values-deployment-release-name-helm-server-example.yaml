@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: release-name-helm-server-example
+  labels:
+    helm.sh/chart: helm-server-example-0.1.0
+    app.kubernetes.io/name: helm-server-example
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: 1.0.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: helm-server-example
+      app.kubernetes.io/instance: release-name
+  template:
+    metadata:
+      annotations:
+        business.app: prod
+        business.team: sre
+        business.tier: '0'
+      labels:
+        app.kubernetes.io/name: helm-server-example
+        app.kubernetes.io/instance: release-name
+        app: prod
+        team: sre
+        tier: '0'
+    spec:
+      serviceAccountName: release-name-helm-server-example
+      securityContext: {}
+      containers:
+      - name: helm-server-example
+        securityContext: {}
+        image: nginx:1.25
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 200m
+            memory: 256Mi
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - helm-server-example
+              topologyKey: kubernetes.io/hostname
+            weight: 100

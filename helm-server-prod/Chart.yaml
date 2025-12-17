@@ -1,0 +1,11 @@
+apiVersion: v2
+name: helm-server-prod
+description: Production deployment of helm-server-example
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+
+dependencies:
+  - name: helm-server-example
+    version: "0.1.0"
+    repository: "file://../helm-server-example"

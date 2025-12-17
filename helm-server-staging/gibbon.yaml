@@ -2,6 +2,6 @@ engine: helm
 
 instructions:
   - name: "Apply the business values"
-    arguments: template server -f business-values.yaml
+    arguments: template . -f business-values.yaml
   - name: "Apply the business and environment values"
-    arguments: template server -f business-values.yaml -f environment-values.yaml
+    arguments: template . -f business-values.yaml -f environment-values.yaml

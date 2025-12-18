@@ -1,6 +1,8 @@
 engine: helm
 
 instructions:
+  - name: "Render the initial chart"
+    arguments: template .
   - name: "Apply the business values"
     arguments: template . -f business-values.yaml
   - name: "Apply the business and environment values"

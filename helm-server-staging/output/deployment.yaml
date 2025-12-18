@@ -17,9 +17,15 @@ spec:
   template:
     metadata:
       annotations:
+        business.app: staging
+        business.team: sre
+        business.tier: '0'
       labels:
         app.kubernetes.io/name: helm-server-example
         app.kubernetes.io/instance: release-name
+        app: staging
+        team: sre
+        tier: '0'
     spec:
       serviceAccountName: release-name-helm-server-example
       securityContext: {}

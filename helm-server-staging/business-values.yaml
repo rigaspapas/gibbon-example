@@ -1,10 +1,11 @@
 # Business-specific labels and annotations for staging
-podLabels:
-  app: staging
-  team: sre
-  tier: "0"
+helm-server-example:
+  podLabels:
+    app: staging
+    team: sre
+    tier: "0"
 
-podAnnotations:
-  business.app: staging
-  business.team: sre
-  business.tier: "0"
+  podAnnotations:
+    business.app: staging
+    business.team: sre
+    business.tier: "0"

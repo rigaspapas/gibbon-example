@@ -1,17 +1,18 @@
 # Environment-specific customizations for staging - optimized for cost
-replicaCount: 1
+helm-server-example:
+  replicaCount: 1
 
-autoscaling:
-  enabled: false
+  autoscaling:
+    enabled: false
 
-podDisruptionBudget:
-  enabled: true
-  minAvailable: 0
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 0
 
-resources:
-  limits:
-    cpu: 100m
-    memory: 128Mi
-  requests:
-    cpu: 50m
-    memory: 64Mi
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi

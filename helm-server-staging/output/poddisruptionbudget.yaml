@@ -9,7 +9,6 @@ metadata:
     app.kubernetes.io/version: 1.0.0
     app.kubernetes.io/managed-by: Helm
 spec:
-  minAvailable: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: helm-server-example

@@ -4,6 +4,11 @@ metadata:
   name:
     name: gibbon-gibbon-traffic-manager
   namespace: mynamespace
+  labels:
+    engine:
+      engine: gibbon
+    engine/version:
+      engine/version: 0.0.1
 spec:
   selector:
     matchLabels:

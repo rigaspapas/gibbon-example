@@ -29,7 +29,7 @@ spec:
       - name: gibbon-gibbon-traffic-manager
         env:
         - name: AGENT_MOUNT_POLICIES
-          value: '{"/tmp": "Local"}'
+          value: '{"/tmp":"Local"}'
         - name: NOT_USED_NSS
           value: '["kube-system","kube-node-lease"]'
         securityContext:

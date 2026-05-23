@@ -3,15 +3,6 @@ kind: Deployment
 metadata:
   name: gibbon-traffic-manager
   namespace: mynamespace
-  ownerReferences:
-  - apiVersion: v1
-    kind: Namespace
-    name: default
-    uid: ''
-  - apiVersion: apps/v1
-    kind: Deployment
-    name: gibbon-traffic-manager
-    uid: ''
 spec:
   selector:
     matchLabels:

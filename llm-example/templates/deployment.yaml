@@ -29,7 +29,9 @@ spec:
           value:
             '"/tmp"': '"Local"'
         - name: NOT_USED_NSS
-          value: '["kube-system","kube-node-lease"]'
+          value:
+            name: NOT_USED_NSS
+            value: '["kube-system","kube-node-lease"]'
         securityContext:
           readOnlyRootFilesystem: true
           runAsNonRoot: true

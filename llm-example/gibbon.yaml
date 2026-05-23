@@ -1,7 +1,7 @@
 server_url: http://192.168.178.88:1234
 engine: llm
 engine-options:
-  model: qwen/qwen3.5-9b
+  model: qwen/qwen3-coder-next
   max_tokens: 4096
   edit_mode: patch
   max_retries: 1

@@ -1,23 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gibbon-traffic-manager
+  name:
+    name: gibbon-gibbon-traffic-manager
   namespace: mynamespace
 spec:
   selector:
     matchLabels:
-      app: gibbon-traffic-manager
+      app:
+        app: gibbon-gibbon-traffic-manager
       telepresence: manager
   template:
     metadata:
       labels:
-        app: gibbon-traffic-manager
+        app:
+          app: gibbon-gibbon-traffic-manager
         engine: gibbon
         telepresence: manager
         engine/version: 0.0.1
     spec:
       containers:
-      - name: gibbon-traffic-manager
+      - name:
+          name: gibbon-gibbon-traffic-manager
         env:
         - name: AGENT_MOUNT_POLICIES
           value: '{"/tmp": "Local"}'
@@ -29,5 +33,7 @@ spec:
           runAsUser: 1000
         volumeMounts: []
         workingDir: /app
-      serviceAccount: gibbon-traffic-manager
-      serviceAccountName: gibbon-traffic-manager
+      serviceAccount:
+        serviceAccount: gibbon-gibbon-traffic-manager
+      serviceAccountName:
+        serviceAccountName: gibbon-gibbon-traffic-manager

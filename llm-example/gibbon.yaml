@@ -1,8 +1,9 @@
 server_url: http://192.168.178.88:1234
 engine: llm
 engine-options:
-  model: qwen/qwen3-coder-next
+  model: qwen/qwen3.5-9b
   max_tokens: 4096
+  disable_reasoning: true
 instructions:
   - 'Prefix all resource names with `gibbon-`'
   - 'Set the `.metadata.labels.engine=gibbon` and `.metadata.labels.engine/version=0.0.1`'

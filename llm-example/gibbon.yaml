@@ -3,6 +3,8 @@ engine: llm
 engine-options:
   model: qwen/qwen3.5-9b
   max_tokens: 4096
+  edit_mode: patch
+  max_retries: 1
   disable_reasoning: true
 instructions:
   - 'Prefix all resource names with `gibbon-`'

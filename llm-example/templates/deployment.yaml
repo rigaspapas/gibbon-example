@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gibbon-traffic-manager
+  name:
+    $patch: prefix
+    value: gibbon-
   namespace: mynamespace
 spec:
   selector:
@@ -29,5 +31,9 @@ spec:
           runAsUser: 1000
         volumeMounts: []
         workingDir: /app
-      serviceAccount: gibbon-traffic-manager
-      serviceAccountName: gibbon-traffic-manager
+      serviceAccount:
+        $patch: prefix
+        value: gibbon-
+      serviceAccountName:
+        $patch: prefix
+        value: gibbon-

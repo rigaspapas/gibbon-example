@@ -25,7 +25,7 @@ spec:
         - name: AGENT_MOUNT_POLICIES
           value: '{"/tmp": "Local"}'
         - name: NOT_USED_NSS
-          value: '["kube-system","kube-node-lease"]'
+          value: '["kube-system", "kube-node-lease"]'
         securityContext:
           readOnlyRootFilesystem: true
           runAsNonRoot: true

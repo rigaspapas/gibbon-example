@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: gibbon-traffic-manager
   namespace: mynamespace
+  labels:
+    engine: gibbon
+    engine/version: 0.0.1
 spec:
   selector:
     matchLabels:

@@ -16,6 +16,8 @@ engine-options:
 instructions:
   - >-
     Add label app.kubernetes.io/managed-by=gibbon to metadata.labels on every resource
-  - >-
-    On the Deployment only, set spec.template.spec.containers[0].resources.requests
-    to cpu 50m and memory 64Mi, and limits to cpu 200m and memory 128Mi
+  - instruction: >-
+      Set spec.template.spec.containers[0].resources.requests to cpu 50m and memory 64Mi,
+      and limits to cpu 200m and memory 128Mi
+    kinds:
+      - Deployment

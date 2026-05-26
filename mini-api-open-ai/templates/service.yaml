@@ -1,4 +1,3 @@
-# Source: mini-api/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,15 +6,15 @@ metadata:
     helm.sh/chart: mini-api-0.1.0
     app.kubernetes.io/name: mini-api
     app.kubernetes.io/instance: mini-api
-    app.kubernetes.io/version: "1.0.0"
-    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: 1.0.0
+    app.kubernetes.io/managed-by: gibbon
 spec:
   type: ClusterIP
   ports:
-    - port: 8080
-      targetPort: http
-      protocol: TCP
-      name: http
+  - port: 8080
+    targetPort: http
+    protocol: TCP
+    name: http
   selector:
     app.kubernetes.io/name: mini-api
     app.kubernetes.io/instance: mini-api

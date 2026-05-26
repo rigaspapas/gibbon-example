@@ -1,0 +1,14 @@
+---
+# Source: mini-api/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mini-api
+  labels:
+    helm.sh/chart: mini-api-0.1.0
+    app.kubernetes.io/name: mini-api
+    app.kubernetes.io/instance: mini-api
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  GREETING: "Hello from mini-api"

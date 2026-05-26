@@ -1,0 +1,21 @@
+# Gibbon example: LLM edits rendered manifests from chart/ (see scripts/render-chart.sh).
+# API key: do NOT put secrets here. Set OPENAI_API_KEY or GIBBON_LLM_API_KEY in the environment
+# (see .env.example and README.md).
+
+engine: llm
+app_name: mini-api
+
+server_url: https://api.openai.com
+
+engine-options:
+  model: gpt-4o-mini
+  max_tokens: 8192
+  edit_mode: patch
+  max_retries: 1
+
+instructions:
+  - >-
+    Add label app.kubernetes.io/managed-by=gibbon to metadata.labels on every resource
+  - >-
+    On the Deployment only, set spec.template.spec.containers[0].resources.requests
+    to cpu 50m and memory 64Mi, and limits to cpu 200m and memory 128Mi

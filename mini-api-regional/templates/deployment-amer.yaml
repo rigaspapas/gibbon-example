@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/part-of: global-greeting-platform
     app.kubernetes.io/managed-by: gibbon
 spec:
-  replicas: 1
+  replicas: 6
   selector:
     matchLabels:
       app.kubernetes.io/name: greeting-api
@@ -38,8 +38,8 @@ spec:
           value: en_US,es_MX,fr_CA
         resources:
           requests:
-            cpu: 100m
-            memory: 128Mi
+            cpu: 500m
+            memory: 512Mi
           limits:
-            cpu: 250m
-            memory: 256Mi
+            cpu: '1'
+            memory: 1Gi

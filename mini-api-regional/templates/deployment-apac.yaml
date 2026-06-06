@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/part-of: global-greeting-platform
     app.kubernetes.io/managed-by: gibbon
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app.kubernetes.io/name: greeting-api

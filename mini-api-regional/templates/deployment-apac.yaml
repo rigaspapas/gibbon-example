@@ -30,6 +30,12 @@ spec:
         env:
         - name: SERVICE_NAME
           value: greeting-api
+        - name: DEFAULT_LOCALE
+          value: ja_JP.UTF-8
+        - name: LANG
+          value: ja_JP.UTF-8
+        - name: SUPPORTED_LOCALES
+          value: ja_JP,ko_KR,en_AU
         resources:
           requests:
             cpu: 100m

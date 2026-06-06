@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greeting-api-apac
+  labels:
+    app.kubernetes.io/name: greeting-api
+    app.kubernetes.io/region: apac
+    app.kubernetes.io/part-of: global-greeting-platform
+    app.kubernetes.io/managed-by: gibbon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: greeting-api
+      app.kubernetes.io/region: apac
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: greeting-api
+        app.kubernetes.io/region: apac
+        app.kubernetes.io/part-of: global-greeting-platform
+        app.kubernetes.io/managed-by: gibbon
+    spec:
+      containers:
+      - name: greeting-api
+        image: ghcr.io/example/greeting-api:1.0.0
+        ports:
+        - name: http
+          containerPort: 8080
+        env:
+        - name: SERVICE_NAME
+          value: greeting-api
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi

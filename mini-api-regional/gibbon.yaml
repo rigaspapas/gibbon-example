@@ -1,0 +1,56 @@
+engine: llm
+app_name: greeting-api-regional
+
+# OpenAI-compatible endpoint. The API key is read from the OPENAI_API_KEY (or
+# GIBBON_LLM_API_KEY) environment variable -- see .env.example. Never commit a real key.
+server_url: https://api.openai.com
+
+engine-options:
+  model: gpt-4o-mini
+  edit_mode: patch
+  max_tokens: 4096
+  # Region logic occasionally needs a second try; give the model one retry.
+  max_retries: 2
+
+# ONE gibbon.yaml, THREE inputs (templates/deployment-{amer,emea,apac}.yaml).
+# The inputs are byte-for-byte identical except for the value of the
+# `app.kubernetes.io/region` label. Every instruction below reads that label and
+# customizes the manifest accordingly, so the same config produces three distinct
+# deployments: three languages (flavours) and three scaling/compliance profiles.
+#
+# Business need: one customer-facing greeting API rolled out per region with a
+# localized default language, region-appropriate scaling (traffic differs a lot by
+# region), and data-residency annotations for compliance.
+instructions:
+  - kinds: [Deployment]
+    instruction: >-
+      Add the label `app.kubernetes.io/part-of: global-greeting-platform` and
+      `app.kubernetes.io/managed-by: gibbon` to both metadata.labels and
+      spec.template.metadata.labels. Do not change any existing labels.
+
+  - kinds: [Deployment]
+    instruction: >-
+      This Deployment serves the region named in its `app.kubernetes.io/region`
+      label. Add three container environment variables that localize the service for
+      that region. Set DEFAULT_LOCALE and LANG to: amer -> en_US.UTF-8,
+      emea -> de_DE.UTF-8, apac -> ja_JP.UTF-8. Set SUPPORTED_LOCALES to a
+      comma-separated list for the region: amer -> "en_US,es_MX,fr_CA",
+      emea -> "de_DE,en_GB,fr_FR", apac -> "ja_JP,ko_KR,en_AU". Keep all existing
+      environment variables.
+
+  - kinds: [Deployment]
+    instruction: >-
+      Size this Deployment for its regional traffic, keyed on the
+      `app.kubernetes.io/region` label. Set spec.replicas to: amer -> 6,
+      emea -> 3, apac -> 2. Scale the container resources to match (amer largest,
+      apac smallest): amer requests cpu 500m / memory 512Mi and limits cpu 1 /
+      memory 1Gi; emea requests cpu 250m / memory 256Mi and limits cpu 500m /
+      memory 512Mi; apac requests cpu 100m / memory 128Mi and limits cpu 250m /
+      memory 256Mi.
+
+  - kinds: [Deployment]
+    instruction: >-
+      Add a data-residency annotation `compliance.example.com/data-region` to
+      metadata.annotations, set by region: amer -> us, emea -> eu, apac -> jp. For
+      the emea region only, also add the annotation `compliance.example.com/gdpr`
+      with the string value "true".

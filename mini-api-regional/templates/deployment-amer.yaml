@@ -7,6 +7,8 @@ metadata:
     app.kubernetes.io/region: amer
     app.kubernetes.io/part-of: global-greeting-platform
     app.kubernetes.io/managed-by: gibbon
+  annotations:
+    compliance.example.com/data-region: us
 spec:
   replicas: 6
   selector:

@@ -7,6 +7,9 @@ metadata:
     app.kubernetes.io/region: emea
     app.kubernetes.io/part-of: global-greeting-platform
     app.kubernetes.io/managed-by: gibbon
+  annotations:
+    compliance.example.com/data-region: eu
+    compliance.example.com/gdpr: 'true'
 spec:
   replicas: 3
   selector:
@@ -20,6 +23,9 @@ spec:
         app.kubernetes.io/region: emea
         app.kubernetes.io/part-of: global-greeting-platform
         app.kubernetes.io/managed-by: gibbon
+      annotations:
+        compliance.example.com/data-region: eu
+        compliance.example.com/gdpr: 'true'
     spec:
       containers:
       - name: greeting-api
